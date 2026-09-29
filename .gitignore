@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+# Ignore local model binaries to keep Git lightweight
+*.pkl
+*.onnx
+*.pt
+*.h5
+data/
