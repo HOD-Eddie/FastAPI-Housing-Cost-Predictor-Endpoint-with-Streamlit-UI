@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Station 1 & 2 Backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: always
+
+  # Visual Frontend Client
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      # Crucial: 'api' matches the service name of the backend container above!
+      - API_URL=http://api:8000/generate-listing
+    depends_on:
+      - api
+    restart: always

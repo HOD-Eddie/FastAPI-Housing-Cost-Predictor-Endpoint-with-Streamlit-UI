@@ -1,10 +1,19 @@
-# app/main.py
+"""Application entry point."""
+
+import sys
+from pathlib import Path
+
+# Support running this file directly as well as importing it as a package.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from fastapi import FastAPI, Response, status
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.api.routes import router as housing_router
 from app.core.config import settings
 
-# Import our singletons to check their internal states during health probes
 from app.services.price_service import pricing_service
 from app.services.description_service import description_service
 

@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 
@@ -45,7 +46,7 @@ if st.button("Generate Smart Evaluation & Listing", type="primary"):
         "marketing_tone": marketing_tone
     }
     
-    API_URL = "http://localhost:8000/api/generate-listing"
+    API_URL = os.getenv("API_URL", "http://localhost:8000/api/generate-listing")
     
     try:
         with st.spinner("Processing multi-stage pipeline (Running Regressor + LLM)..."):

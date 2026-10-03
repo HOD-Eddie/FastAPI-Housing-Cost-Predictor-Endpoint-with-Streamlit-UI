@@ -1,4 +1,10 @@
+import sys
+from pathlib import Path
+
 from fastapi.testclient import TestClient
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from app.main import app
 
 # 1. Initialize the virtual test client pointing to your real estate platform
@@ -18,8 +24,8 @@ def test_optimized_liveness_check():
 def test_listing_generation_pipeline_success():
     """Verify a valid house profile completes the full custom + pretrained pipeline."""
     payload = {
-        "median_income": 8.32,
-        "house_age": 41.0,
+        "median_income": 8.3,
+        "house_age": 42.0,
         "avg_rooms": 6.98,
         "avg_bedrooms": 1.02,
         "population": 322.0,
