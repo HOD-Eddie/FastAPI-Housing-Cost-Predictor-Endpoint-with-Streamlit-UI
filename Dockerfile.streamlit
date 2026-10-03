@@ -1,0 +1,22 @@
+# 1. Use a lightweight, official Python image
+FROM python:3.13-slim
+
+# 2. Set the operational folder inside the container
+WORKDIR /app
+
+# 3. Copy only requirements first to maximize layer caching speeds
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 4. Copy your dashboard script into the container workspace
+COPY dashboard.py .
+
+# 5. Expose Streamlit's default network port
+EXPOSE 8501
+
+# 6. Pass explicit network flags to run seamlessly in headless mode
+CMD ["streamlit", "run", "dashboard.py", \
+     "--server.address=0.0.0.0", \
+     "--server.port=8501", \
+     "--server.enableCORS=false", \
+     "--server.enableXsrfProtection=false"]

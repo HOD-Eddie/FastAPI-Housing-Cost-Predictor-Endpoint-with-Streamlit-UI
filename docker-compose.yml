@@ -19,7 +19,7 @@ services:
       - "8501:8501"
     environment:
       # Crucial: 'api' matches the service name of the backend container above!
-      - API_URL=http://api:8000/generate-listing
+      - API_URL=http://api:8000/api/generate-listing
     depends_on:
       - api
     restart: always

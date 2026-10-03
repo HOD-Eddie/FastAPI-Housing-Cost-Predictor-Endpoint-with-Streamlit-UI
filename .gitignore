@@ -21,6 +21,3 @@ app/models/*.joblib
 ENV/
 env/
 __pycache__/
-Dockerfile
-Dockerfile.streamlit
-.dockerignore
