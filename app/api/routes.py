@@ -44,3 +44,4 @@ def create_house_listing(payload: HouseFeaturesInput):
             status_code=500, 
             detail=f"Real Estate Pipeline Processing Error: {str(e)}"
         )
+ 

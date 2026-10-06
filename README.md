@@ -1,94 +1,75 @@
-# FastAPI-Housing-Cost-Predictor-Endpoint-with-Streamlit-UI
-This repo is a testament to my journey, as a MLOps Engineer. The codebase is not the most optimized, or most accurate, but instead shows my commitment to learning, and deploying without waiting for perfection. Even as I evolve beyond this stage, I seek to always make reference, and learn from my own documented milestones.
+# FastAPI Housing Cost Predictor with Streamlit UI
 
-# 🏡 Smart Real Estate Valuation & AI Listing Platform
-This is an MLOps pipeline built with **FastAPI** and **Streamlit**. The system takes physical and economic neighborhood metrics, calculates an accurate property valuation using a custom regression model, and instantly pipes those insights into a pre-trained language transformer to generate custom real estate marketing descriptions.
+This repo is a testament to my journey as an MLOps engineer. The code is not the most optimized or the most accurate. It shows my commitment to learning and deploying without waiting for perfection. As I grow beyond this stage, I want to keep learning from my own documented milestones.
 
----
+## What it does
 
-## 🏗️ Architecture & Core Data Flow
+You enter details about a neighborhood. The app does two things:
 
-The platform is designed as an isolated microservices assembly line:
+1. A Random Forest Regressor, trained on the California Housing dataset, estimates the property price from 8 features.
+2. A pre-trained Hugging Face model (distilgpt2) writes a short listing description around that price, in the tone you choose.
 
-1. **Station 1: Custom Valuation (Scikit-Learn Regression)**
-   * Uses a **Random Forest Regressor** trained on the California Housing Dataset (achieving a **0.89 R² accuracy score**).
-   * Maps 8 spatial-economic features to calculate absolute property values in real USD.
-2. **Station 2: Automated Copywriting (Pre-trained LLM)**
-   * Leverages the open-source Hugging Face **`distilgpt2`** model (~350MB local memory footprint).
-   * Employs prompt engineering templates adjusted with creative sampling and repetition penalties to generate tailored advertisement scripts.
-3. **Data Protection Layer (Pydantic)**
-   * Enforces strict operational boundaries (e.g., house dimensions must be `gt=0`) to protect internal tensor layers from parsing crashes.
+Pydantic validates every request before it reaches either model.
 
----
-
-## 🛠️ Project Structure
+## Project structure
 
 ```text
-my_new_project_name/
 ├── app/
-│   ├── api/
-│   │   └── routes.py             # Route controller and endpoints
-│   ├── core/
-│   │   └── config.py             # Pydantic BaseSettings management
-│   ├── schemas/
-│   │   └── housing_schema.py     # Pydantic Request/Response models
-│   └── services/
-│   |    ├── price_service.py     # Station 1 logic (Custom model handler)
-│   |    └── description_service.py # Station 2 logic (Pre-trained HuggingFace Pipeline)
-|   └── models/
-│        └── housing_model.joblib      # Serialized Random Forest model binary
-├── tests/
-│   └── test_pipeline.py          # Pytest integration & validation suites
-├── dashboard.py                  # Streamlit user interface client
-├── train_housing.py              # Offline model training pipeline script
-└── README.md
+│   ├── api/routes.py                  # Endpoints
+│   ├── core/config.py                 # pydantic-settings configuration
+│   ├── schemas/housing_schema.py      # Request and response models
+│   ├── services/
+│   │   ├── price_service.py           # Loads and runs the regression model
+│   │   └── description_service.py     # Text generation pipeline
+│   └── main.py                        # App entry point and health check
+├── tests/test_housing.py              # Pytest tests
+├── dashboard.py                       # Streamlit interface
+├── train_model.py                     # Trains and saves the model
+├── Dockerfile                         # API image
+├── Dockerfile.streamlit               # Dashboard image
+└── docker-compose.yml                 # Runs both services
 ```
 
----
-
-## ⚡ Getting Started
-
-### 1. Environment Setup & Installation
-Clone the repository and spin up your local Python environment:
+## Run it locally
 
 ```bash
-# Activate your virtual environment
+python -m venv .venv
 source .venv/bin/activate
-
-# Install all frozen dependencies
 pip install -r requirements.txt
-```
 
-### 2. Train the Custom Regressor
-Generate your local production model weights binary file:
+# Train the model first. The model file is not stored in the repo.
+python train_model.py
 
-```bash
-python3 train_housing.py
-```
-
-### 3. Launch the Backend API
-Run the Uvicorn engine. On initial boot, the app will automatically download the pre-trained `safetensors` model weights to your local machine cache.
-
-```bash
+# Start the API
 PYTHONPATH=. uvicorn app.main:app --reload
 ```
-* Interactive API Documentation (Swagger UI): `http://127.0.0`
-* Optimized Memory Liveness Diagnostics: `http://127.0.0`
 
-### 4. Run the Visual Frontend
-Open a separate terminal window, activate your virtual environment, and fire up the UI client:
+- API docs: http://127.0.0.1:8000/docs
+- Health check: http://127.0.0.1:8000/health/live
 
-```bashapp/data_load.py/dapp/data_load.py/dataset_load.pyataset_load.py
-streamlit run dashboard.py
-```
-* Dashboard URL: `http://localhost:8501`
-
----
-
-## 🧪 Automated Testing
-
-The platform features an automated quality-assurance validation suite that evaluates system health configurations and contract type constraints. Run them via the console root:
+In a second terminal, start the dashboard:
 
 ```bash
-python3 -m pytest tests/
+streamlit run dashboard.py
 ```
+
+Dashboard: http://localhost:8501
+
+## Run it with Docker
+
+Train the model first, so the file exists when the image is built:
+
+```bash
+python train_model.py
+docker compose up --build
+```
+
+## Tests
+
+```bash
+python -m pytest tests/
+```
+
+## What's next
+
+CI on every push, experiment tracking, cloud deployment, monitoring, and a stronger model for the text generation.
