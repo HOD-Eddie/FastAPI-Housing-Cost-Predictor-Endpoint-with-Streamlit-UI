@@ -1,10 +1,8 @@
-<<<<<<< HEAD
 # FastAPI-Housing-Cost-Predictor-Endpoint-with-Streamlit-UI
 This repo is a testament to my journey, as a MLOps Engineer. The codebase is not the most optimized, or most accurate, but instead shows my commitment to learning, and deploying without waiting for perfection. Even as I evolve beyond this stage, I seek to always make reference, and learn from my own documented milestones.
-=======
-# 🏡 Smart Real Estate Valuation & AI Listing Platform
 
-A production-ready, dual-stage MLOps pipeline built with **FastAPI** and **Streamlit**. The system takes physical and economic neighborhood metrics, calculates an accurate property valuation using a custom regression model, and instantly pipes those insights into a pre-trained language transformer to generate custom real estate marketing descriptions.
+# 🏡 Smart Real Estate Valuation & AI Listing Platform
+This is an MLOps pipeline built with **FastAPI** and **Streamlit**. The system takes physical and economic neighborhood metrics, calculates an accurate property valuation using a custom regression model, and instantly pipes those insights into a pre-trained language transformer to generate custom real estate marketing descriptions.
 
 ---
 
@@ -94,4 +92,3 @@ The platform features an automated quality-assurance validation suite that evalu
 ```bash
 python3 -m pytest tests/
 ```
->>>>>>> 80b0aee (fixed module import problems)
