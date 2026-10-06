@@ -8,8 +8,8 @@ class HouseFeaturesInput(BaseModel):
     avg_bedrooms: float = Field(..., gt=0, description="Average number of bedrooms per household", examples=[1.02], strict=True)
     population: float = Field(..., gt=0, description="Block group population total", examples=[322.0], strict=True)
     avg_occupancy: float = Field(..., gt=0, description="Average household members", examples=[2.55], strict=True)
-    latitude: float = Field(..., min_value=-90, max_value=90, description="Geographical latitude", examples=[37.88], strict=True)
-    longitude: float = Field(..., min_value=-180, max_value=180, description="Geographical longitude", examples=[-122.23], strict=True)
+    latitude: float = Field(..., ge=-90, le=90, description="Geographical latitude", examples=[37.88], strict=True)
+    longitude: float = Field(..., ge=-180, le=180, description="Geographical longitude", examples=[-122.23], strict=True)
     
     # Adding a custom configuration field for our Station 2 (The LLM)
     marketing_tone: str = Field("enthusiastic", description="The copywriting tone (e.g., professional, luxury, rustic)", examples=["luxury"])

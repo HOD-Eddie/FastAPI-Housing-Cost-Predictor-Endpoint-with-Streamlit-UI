@@ -6,7 +6,7 @@ This repo is a testament to my journey as an MLOps engineer. The code is not the
 
 You enter details about a neighborhood. The app does two things:
 
-1. A Random Forest Regressor, trained on the California Housing dataset, estimates the property price from 8 features.
+1. A Random Forest Regressor, trained on the California Housing dataset, estimates the property price from 8 features. On a 20% held-out test set, the model scores an R² of 0.82.
 2. A pre-trained Hugging Face model (distilgpt2) writes a short listing description around that price, in the tone you choose.
 
 Pydantic validates every request before it reaches either model.
