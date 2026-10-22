@@ -13,9 +13,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router as housing_router
 from app.core.config import settings
-
-from app.services.price_service import pricing_service
 from app.services.description_service import description_service
+from app.services.price_service import pricing_service
 
 # 1. Instantiate the central FastAPI engine
 app = FastAPI(

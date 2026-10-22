@@ -1,8 +1,9 @@
-import joblib
 from pathlib import Path
+
+import joblib
 from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor  # Changed from LogisticRegression
+from sklearn.model_selection import train_test_split
 
 # Ensure target directory framework exists
 target_dir = Path("app/models")
