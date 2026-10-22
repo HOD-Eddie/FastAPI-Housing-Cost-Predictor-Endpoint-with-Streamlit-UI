@@ -3,6 +3,11 @@
 
 name: Run Auto Test
 
+# Automatically cancel any older, running builds for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 on: 
   push:
     branches:  [ main ]
