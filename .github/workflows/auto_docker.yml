@@ -6,7 +6,7 @@ concurrency:
   
 on:
   workflow_run:
-    workflows: [ "auto_test" ]
+    workflows: [ "Run Auto Test" ]
     types:
       - completed
     
